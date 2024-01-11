@@ -3,7 +3,14 @@
 # class for hash map code
 class HashMap
   # produce hash
-  def hash() end
+  def hash(string)
+    hash_code = 0
+    prime_number = 31
+
+    string.each_char { |char| hash_code = prime_number * hash_code + char.ord }
+
+    hash_code
+  end
 
   # set hash
   def set() end
