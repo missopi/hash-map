@@ -25,12 +25,17 @@ class HashMap
     hash_code % 16
   end
 
+  def entry(bucket, key)
+    bucket.each { |entry| return entry if entry.key == key }
+  end
+
   # set hash
   def set(key, value)
     bucket_key = bucket(key)
-    bucket_value = hash(value)
+    bucket_entry = entry(bucket_key, key)
+    bucket_entry.value = value
 
-    @buckets.push({ bucket_key => bucket_value })
+    @buckets.push({ key => value })
 
     @buckets.length = MAX_CAPACITY * 2 if @buckets.length / MAX_CAPACITY >= LOAD_FACTOR
   end
@@ -68,5 +73,5 @@ class HashMap
   def entries() end
 end
 
-hash = HashMap.new
-puts hash.hash('hello')
+p hash = HashMap.new
+p 
