@@ -43,7 +43,9 @@ class HashMap
   end
 
   # is key in hash map?
-  def key?(key) end
+  def key?(key)
+    true if @buckets.include?(key)
+  end
 
   # delete from hash map
   def remove(key) end
