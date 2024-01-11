@@ -48,7 +48,9 @@ class HashMap
   end
 
   # delete from hash map
-  def remove(key) end
+  def remove(key)
+    @buckets.delete(key)
+  end
 
   # number of keys in hash map
   def length() end
