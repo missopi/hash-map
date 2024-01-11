@@ -19,18 +19,20 @@ class HashMap
     hash_code
   end
 
-  # create bucket key
-  def bucket(value)
-    hash_value = hash(value)
-    hash_value % 16
+  # create bucket value
+  def bucket(key)
+    hash_code = hash(key)
+    hash_code % 16
   end
 
   # set hash
   def set(key, value)
-    bucket_key = bucket(key)
-    hash_value = hash(value)
+    bucket_value = bucket(value)
+    hash_key = hash(key)
 
-    @buckets.push({ bucket_key => hash_value })
+    @buckets.push({ hash_key => bucket_value })
+
+    @buckets.length = MAX_CAPACITY * 2 if @buckets.length / MAX_CAPACITY >= LOAD_FACTOR
   end
 
   # return key value
