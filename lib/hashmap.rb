@@ -2,6 +2,13 @@
 
 # class for hash map code
 class HashMap
+  MAX_CAPACITY = 14
+  LOAD_FACTOR = 0.75
+
+  def initialize
+    @buckets = Array.new(MAX_CAPACITY)
+  end
+
   # produce hash
   def hash(string)
     hash_code = 0
@@ -12,17 +19,28 @@ class HashMap
     hash_code
   end
 
+  # create bucket key
+  def bucket(value)
+    hash_value = hash(value)
+    hash_value % 16
+  end
+
   # set hash
-  def set() end
+  def set(key, value)
+    bucket_key = bucket(key)
+    hash_value = hash(value)
+
+    @buckets.push({ bucket_key => hash_value })
+  end
 
   # return key value
-  def get() end
+  def get(key) end
 
   # is key in hash map?
-  def key?() end
+  def key?(key) end
 
   # delete from hash map
-  def remove() end
+  def remove(key) end
 
   # number of keys in hash map
   def length() end
@@ -39,3 +57,6 @@ class HashMap
   # returns array of all key, value pairs
   def entries() end
 end
+
+hash = HashMap.new
+puts hash.hash('hello')
