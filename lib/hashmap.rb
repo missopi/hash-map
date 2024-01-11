@@ -27,16 +27,20 @@ class HashMap
 
   # set hash
   def set(key, value)
-    bucket_value = bucket(value)
-    hash_key = hash(key)
+    bucket_key = bucket(key)
+    bucket_value = hash(value)
 
-    @buckets.push({ hash_key => bucket_value })
+    @buckets.push({ bucket_key => bucket_value })
 
     @buckets.length = MAX_CAPACITY * 2 if @buckets.length / MAX_CAPACITY >= LOAD_FACTOR
   end
 
   # return key value
-  def get(key) end
+  def get(key)
+    return key if key == hash(key)
+
+    nil
+  end
 
   # is key in hash map?
   def key?(key) end
