@@ -2,11 +2,11 @@
 
 # class for hash map code
 class HashMap
-  MAX_CAPACITY = 14
+  CAPACITY = 16
   LOAD_FACTOR = 0.75
 
   def initialize
-    @buckets = Array.new(MAX_CAPACITY)
+    @buckets = Array.new(CAPACITY)
   end
 
   # produce hash
@@ -16,62 +16,88 @@ class HashMap
 
     string.each_char { |char| hash_code = prime_number * hash_code + char.ord }
 
-    hash_code
-  end
-
-  # create bucket value
-  def bucket(key)
-    hash_code = hash(key)
     hash_code % 16
   end
 
-  def entry(bucket, key)
-    bucket.each { |entry| return entry if entry.key == key }
-  end
-
   # set hash
-  def set(key, value)
-    bucket_key = bucket(key)
-    bucket_entry = entry(bucket_key, key)
-    bucket_entry.value = value
+  def set(key, _value)
+    hash_index = hash(key)
 
-    @buckets.push({ key => value })
+    if !@buckets[hash_index].nil?
+      @buckets[hash_index].append(key)
+    else
+      @buckets[hash_index] = [key]
+    end
 
-    @buckets.length = MAX_CAPACITY * 2 if @buckets.length / MAX_CAPACITY >= LOAD_FACTOR
+    raise IndexError if hash_index.negative? || hash_index >= @buckets.length
   end
 
   # return key value
   def get(key)
-    return key if key == hash(key)
+    hash_index = hash(key)
+    return 'String not found' if @buckets[hash_index].nil?
 
-    nil
+    hash_index if @buckets[hash_index].include?(key)
   end
 
   # is key in hash map?
-  def key?(key)
-    true if @buckets.include?(key)
-  end
+  def key?(key) end
 
   # delete from hash map
-  def remove(key)
-    @buckets.delete(key)
-  end
+  def remove(key) end
 
   # number of keys in hash map
-  def length() end
+  def length
+    @buckets.length
+  end
+
+  # buckets full?
+  def load_factor_reached?() end
 
   # empies hash map
   def clear() end
 
   # returns array of all keys in hash map
-  def keys() end
+  def keys
+    # @buckets
+  end
 
   # return array of values
-  def values() end
+  def values
+    # @buckets
+  end
 
   # returns array of all key, value pairs
   def entries() end
 end
 
-p hash = HashMap.new
-p 
+hash = HashMap.new
+
+puts 'name'
+p hash.hash('name')
+hash.set('name', 'sophie')
+puts 'county'
+p hash.hash('county')
+hash.set('county', 'chester')
+puts 'house'
+p hash.hash('house')
+hash.set('house', 'regent')
+p hash
+
+# puts 'key?'
+# p hash.key?('name')
+puts 'get'
+puts hash.get('name')
+puts hash.get('county')
+puts hash.get('house')
+puts 'length'
+puts hash.length
+# puts 'keys'
+# hash.keys
+# puts 'values'
+# p hash.values
+# puts 'entries'
+# p hash.entries
+# puts 'remove'
+# puts hash.remove('name')
+# p hash
