@@ -20,4 +20,14 @@ describe HashMap do
       end
     end
   end
+
+  describe '#hash' do
+    context 'when a string is inputted' do
+      it 'creates a hash code' do
+        string = 'name'
+        hash = test_hashmap.hash(string)
+        expect(hash).to eq(11)
+      end
+    end
+  end
 end
