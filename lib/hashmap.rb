@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# class for node info
+class Node
+  attr_accessor :key, :value
+
+  def initialize(key, value)
+    @key = key
+    @value = value
+  end
+end
+
 # class for hash map code
 class HashMap
   attr_reader :buckets
@@ -18,18 +28,13 @@ class HashMap
 
     string.each_char { |char| hash_code = prime_number * hash_code + char.ord }
 
-    hash_code % 16
+    hash_code % buckets.length
   end
 
   # set hash
-  def set(key, _value)
+  def set(key, value)
     hash_index = hash(key)
-
-    if !buckets[hash_index].nil?
-      buckets[hash_index].append(key)
-    else
-      buckets[hash_index] = [key]
-    end
+    buckets[hash_index] = [key, value]
 
     raise IndexError if hash_index.negative? || hash_index >= buckets.length
   end
@@ -39,7 +44,7 @@ class HashMap
     hash_index = hash(key)
     return 'String not found' if buckets[hash_index].nil?
 
-    hash_index if buckets[hash_index].include?(key)
+    buckets[hash_index] if buckets[hash_index].include?(key)
   end
 
   # is key in hash map?
@@ -72,3 +77,8 @@ class HashMap
   # returns array of all key, value pairs
   def entries() end
 end
+
+h = HashMap.new
+h.set('name', 'sophie')
+p h
+puts h.get('name')
