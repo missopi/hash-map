@@ -2,6 +2,8 @@
 
 # class for hash map code
 class HashMap
+  attr_reader :buckets
+
   CAPACITY = 16
   LOAD_FACTOR = 0.75
 
@@ -23,21 +25,21 @@ class HashMap
   def set(key, _value)
     hash_index = hash(key)
 
-    if !@buckets[hash_index].nil?
-      @buckets[hash_index].append(key)
+    if !buckets[hash_index].nil?
+      buckets[hash_index].append(key)
     else
-      @buckets[hash_index] = [key]
+      buckets[hash_index] = [key]
     end
 
-    raise IndexError if hash_index.negative? || hash_index >= @buckets.length
+    raise IndexError if hash_index.negative? || hash_index >= buckets.length
   end
 
   # return key value
   def get(key)
     hash_index = hash(key)
-    return 'String not found' if @buckets[hash_index].nil?
+    return 'String not found' if buckets[hash_index].nil?
 
-    hash_index if @buckets[hash_index].include?(key)
+    hash_index if buckets[hash_index].include?(key)
   end
 
   # is key in hash map?
@@ -48,7 +50,7 @@ class HashMap
 
   # number of keys in hash map
   def length
-    @buckets.length
+    buckets.length
   end
 
   # buckets full?
@@ -70,34 +72,3 @@ class HashMap
   # returns array of all key, value pairs
   def entries() end
 end
-
-hash = HashMap.new
-
-puts 'name'
-p hash.hash('name')
-hash.set('name', 'sophie')
-puts 'county'
-p hash.hash('county')
-hash.set('county', 'chester')
-puts 'house'
-p hash.hash('house')
-hash.set('house', 'regent')
-p hash
-
-# puts 'key?'
-# p hash.key?('name')
-puts 'get'
-puts hash.get('name')
-puts hash.get('county')
-puts hash.get('house')
-puts 'length'
-puts hash.length
-# puts 'keys'
-# hash.keys
-# puts 'values'
-# p hash.values
-# puts 'entries'
-# p hash.entries
-# puts 'remove'
-# puts hash.remove('name')
-# p hash
