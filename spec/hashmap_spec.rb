@@ -7,9 +7,9 @@ describe HashMap do
 
   describe '#initialize' do
     context 'new_array' do
-      it 'will be empty' do
+      it 'will be empty nested array' do
         cells = test_hashmap.buckets
-        expect(cells).to all(be_nil)
+        expect(cells).to eq([[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []])
       end
     end
 

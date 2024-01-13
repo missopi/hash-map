@@ -17,7 +17,7 @@ class HashMap
   LOAD_FACTOR = 0.75
 
   def initialize(capacity = 16)
-    @buckets = Array.new(capacity)
+    @buckets = Array.new(capacity) { [] }
     @capacity = capacity
     @length = 0
   end
@@ -35,7 +35,7 @@ class HashMap
   # set hash
   def set(key, value)
     hash_index = hash(key)
-    buckets[hash_index] = { key => value }
+    buckets[hash_index] = [{ key => value }]
     @length += 1
 
     raise IndexError if hash_index.negative? || hash_index >= buckets.length
@@ -49,7 +49,7 @@ class HashMap
     return 'String not found' if buckets[hash_index].nil?
 
     buckets[hash_index].each do |hash|
-      return hash[1] if hash.include?(key)
+      return hash.values[0] if hash.include?(key)
     end
   end
 
@@ -98,4 +98,3 @@ h.set('surname', 'rose')
 h.set('county', 'cheshire')
 p h
 puts h.get('me')
-puts h.get('surname')
