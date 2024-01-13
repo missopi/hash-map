@@ -30,4 +30,18 @@ describe HashMap do
       end
     end
   end
+
+  describe '#get' do
+    context 'when a key is inputted' do
+      before do
+        test_hashmap.set('me', 'sophie')
+      end
+
+      it 'returns the value' do
+        key = 'me'
+        value = test_hashmap.get(key)
+        expect(value).to eq('sophie')
+      end
+    end
+  end
 end
