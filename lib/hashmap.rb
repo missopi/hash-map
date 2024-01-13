@@ -35,7 +35,7 @@ class HashMap
   # set hash
   def set(key, value)
     hash_index = hash(key)
-    buckets[hash_index] = [{ key => value }]
+    buckets[hash_index].push({ key => value })
     @length += 1
 
     raise IndexError if hash_index.negative? || hash_index >= buckets.length
@@ -91,10 +91,10 @@ class HashMap
 end
 
 h = HashMap.new
-h.set('me', 'sophie')
+h.set('name', 'sophie')
 h.set('house', 'chester')
 h.set('island', 'isle of man')
 h.set('surname', 'rose')
 h.set('county', 'cheshire')
 p h
-puts h.get('me')
+puts h.get('surname')
