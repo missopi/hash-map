@@ -1,15 +1,5 @@
 # frozen_string_literal: true
 
-# class for node info
-class Node
-  attr_accessor :key, :value
-
-  def initialize(key, value)
-    @key = key
-    @value = value
-  end
-end
-
 # class for hash map code
 class HashMap
   attr_reader :buckets, :capacity
@@ -22,30 +12,32 @@ class HashMap
     @length = 0
   end
 
-  # produce hash
-  def hash(string)
+  # produce hash key
+  def hash_key(string)
     hash_code = 0
     prime_number = 31
 
     string.each_char { |char| hash_code = prime_number * hash_code + char.ord }
 
-    hash_code % capacity
+    hash_code % buckets.length
   end
 
   # set hash
   def set(key, value)
-    hash_index = hash(key)
-    buckets[hash_index].push({ key => value })
-    @length += 1
-
+    hash_index = hash_key(key)
     raise IndexError if hash_index.negative? || hash_index >= buckets.length
 
-    change_capacity if load_factor_reached?
+    if !buckets[hash_index].nil?
+      buckets[hash_index].append({ key => value })
+      @length += 1
+    else
+      buckets[hash_index] = value
+    end
   end
 
   # return key value
   def get(key)
-    hash_index = hash(key)
+    hash_index = hash_key(key)
     return 'String not found' if buckets[hash_index].nil?
 
     buckets[hash_index].each do |hash|
@@ -91,10 +83,22 @@ class HashMap
 end
 
 h = HashMap.new
+p h.hash_key('buritto')
 h.set('name', 'sophie')
-h.set('house', 'chester')
-h.set('island', 'isle of man')
-h.set('surname', 'rose')
+h.set('city', 'chester')
 h.set('county', 'cheshire')
+h.set('surname', 'rose')
+h.set('island', 'isle of man')
+h.set('children', '2')
+h.set('chair', 'black')
+h.set('animal', 'zebra')
+h.set('dog', 'rex')
+h.set('cat', 'milo')
+h.set('horse', 'neigh')
+h.set('drum', 'blue')
+h.set('keyboard', 'black and white')
+
 p h
-puts h.get('surname')
+p h.get('island')
+p h.get('horse')
+p h.get('city')
