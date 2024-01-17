@@ -32,6 +32,8 @@ class HashMap
     else
       buckets[hash_index] = value
     end
+
+    # change_capacity
   end
 
   # return key value
@@ -69,10 +71,12 @@ class HashMap
 
   # make array bigger
   def change_capacity
+    # current_entries = entries
     new_capacity = buckets.length * 2
     return unless load_factor_reached?
 
     @buckets = Array.new(new_capacity)
+    # current_entries.each { |entry| set(entry.keys, entry.values) }
   end
 
   # empies hash map
@@ -80,12 +84,16 @@ class HashMap
 
   # returns array of all keys in hash map
   def keys
-    # @buckets
+    keys = []
+    entries.each { |entry| keys << entry.keys }
+    keys.flatten
   end
 
   # return array of values
   def values
-    # @buckets
+    values = []
+    entries.each { |entry| values << entry.values }
+    values.flatten
   end
 
   # returns array of all key, value pairs
@@ -119,3 +127,5 @@ p h.get('city')
 
 p h.length
 p h.entries
+p h.keys
+p h.values
