@@ -6,14 +6,13 @@ class HashMap
 
   LOAD_FACTOR = 0.75
 
-  def initialize(capacity = 16)
-    @buckets = Array.new(capacity) { [] }
-    @capacity = capacity
-    @length = 0
+  def initialize
+    @buckets = Array.new(16) { [] }
+    @capacity = 0
   end
 
   # produce hash key
-  def hash_key(string)
+  def hash(string)
     hash_code = 0
     prime_number = 31
 
@@ -24,12 +23,12 @@ class HashMap
 
   # set hash
   def set(key, value)
-    hash_index = hash_key(key)
+    hash_index = hash(key)
     raise IndexError if hash_index.negative? || hash_index >= buckets.length
 
     if !buckets[hash_index].nil?
       buckets[hash_index].append({ key => value })
-      @length += 1
+      @capacity += 1
     else
       buckets[hash_index] = value
     end
@@ -37,7 +36,7 @@ class HashMap
 
   # return key value
   def get(key)
-    hash_index = hash_key(key)
+    hash_index = hash(key)
     return 'String not found' if buckets[hash_index].nil?
 
     buckets[hash_index].each do |hash|
@@ -51,17 +50,28 @@ class HashMap
   # delete from hash map
   def remove(key) end
 
-  # number of keys in hash map
-  def length() end
+  # amount of keys
+  def length
+    @capacity
+  end
+
+  # amount of buckets with keys in them
+  def amount_of_buckets
+    amount = 0
+    buckets.each { |bucket| amount += 1 unless bucket == [] }
+    amount
+  end
 
   # buckets full?
   def load_factor_reached?
-    true if @length > (capacity * LOAD_FACTOR)
+    true if length > (buckets.length * LOAD_FACTOR)
   end
 
   # make array bigger
   def change_capacity
-    new_capacity = capacity * 2
+    new_capacity = buckets.length * 2
+    return unless load_factor_reached?
+
     @buckets = Array.new(new_capacity)
   end
 
@@ -83,22 +93,24 @@ class HashMap
 end
 
 h = HashMap.new
-p h.hash_key('buritto')
+p h.hash('buritto')
 h.set('name', 'sophie')
 h.set('city', 'chester')
-h.set('county', 'cheshire')
+# h.set('county', 'cheshire')
 h.set('surname', 'rose')
-h.set('island', 'isle of man')
-h.set('children', '2')
-h.set('chair', 'black')
-h.set('animal', 'zebra')
-h.set('dog', 'rex')
-h.set('cat', 'milo')
-h.set('horse', 'neigh')
-h.set('drum', 'blue')
-h.set('keyboard', 'black and white')
+# h.set('island', 'isle of man')
+# h.set('children', '2')
+# h.set('chair', 'black')
+# h.set('animal', 'zebra')
+# h.set('dog', 'rex')
+# h.set('cat', 'milo')
+# h.set('horse', 'neigh')
+# h.set('drum', 'blue')
+# h.set('keyboard', 'black and white')
 
 p h
 p h.get('island')
 p h.get('horse')
 p h.get('city')
+
+p h.length
