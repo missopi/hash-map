@@ -77,7 +77,7 @@ class HashMap
 
     @buckets = Array.new(new_capacity)
     current_entries.each do |entry|
-      entry_key = entry.keys.shift.strip
+      p entry_key = entry.keys.shift.strip
       entry_value = entry.values.shift.strip
       set(entry_key, entry_value)
     end
@@ -86,6 +86,7 @@ class HashMap
   # empies hash map
   def clear
     buckets.each(&:clear)
+    @capacity = 0
   end
 
   # returns array of all keys in hash map
@@ -111,7 +112,7 @@ class HashMap
 end
 
 h = HashMap.new
-p h.hash('buritto')
+
 h.set('name', 'sophie')
 h.set('city', 'chester')
 h.set('county', 'cheshire')
@@ -122,15 +123,26 @@ h.set('chair', 'black')
 h.set('animal', 'zebra')
 h.set('dog', 'rex')
 
+puts 'hashmap---------'
 p h
+
+puts 'get method-----------'
 p h.get('island')
-p h.get('horse')
+p h.get('name')
 p h.get('city')
 
+puts 'length----------'
 p h.length
-p h.entries
-p h.keys
-p h.values
-h.clear
 
+puts 'entries-----------'
+p h.entries
+
+puts 'keys------------'
+p h.keys
+
+puts 'values-------------'
+p h.values
+
+puts 'clear array------------'
+h.clear
 p h
