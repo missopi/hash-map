@@ -89,24 +89,28 @@ class HashMap
   end
 
   # returns array of all key, value pairs
-  def entries() end
+  def entries
+    entries = []
+    buckets.each { |bucket| entries += bucket.to_a unless bucket.nil? }
+    entries
+  end
 end
 
 h = HashMap.new
 p h.hash('buritto')
 h.set('name', 'sophie')
 h.set('city', 'chester')
-# h.set('county', 'cheshire')
+h.set('county', 'cheshire')
 h.set('surname', 'rose')
-# h.set('island', 'isle of man')
-# h.set('children', '2')
-# h.set('chair', 'black')
-# h.set('animal', 'zebra')
-# h.set('dog', 'rex')
-# h.set('cat', 'milo')
-# h.set('horse', 'neigh')
-# h.set('drum', 'blue')
-# h.set('keyboard', 'black and white')
+h.set('island', 'isle of man')
+h.set('children', '2')
+h.set('chair', 'black')
+h.set('animal', 'zebra')
+h.set('dog', 'rex')
+h.set('cat', 'milo')
+h.set('horse', 'neigh')
+h.set('drum', 'blue')
+h.set('keyboard', 'black and white')
 
 p h
 p h.get('island')
@@ -114,3 +118,4 @@ p h.get('horse')
 p h.get('city')
 
 p h.length
+p h.entries
