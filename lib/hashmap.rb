@@ -33,7 +33,7 @@ class HashMap
       buckets[hash_index] = value
     end
 
-    # change_capacity
+    change_capacity
   end
 
   # return key value
@@ -71,16 +71,22 @@ class HashMap
 
   # make array bigger
   def change_capacity
-    # current_entries = entries
+    current_entries = entries
     new_capacity = buckets.length * 2
     return unless load_factor_reached?
 
     @buckets = Array.new(new_capacity)
-    # current_entries.each { |entry| set(entry.keys, entry.values) }
+    current_entries.each do |entry|
+      entry_key = entry.keys.shift.strip
+      entry_value = entry.values.shift.strip
+      set(entry_key, entry_value)
+    end
   end
 
   # empies hash map
-  def clear() end
+  def clear
+    buckets.each(&:clear)
+  end
 
   # returns array of all keys in hash map
   def keys
@@ -99,8 +105,8 @@ class HashMap
   # returns array of all key, value pairs
   def entries
     entries = []
-    buckets.each { |bucket| entries += bucket.to_a unless bucket.nil? }
-    entries
+    buckets.each { |bucket| entries << bucket unless bucket == [] }
+    entries.flatten
   end
 end
 
@@ -115,10 +121,6 @@ h.set('children', '2')
 h.set('chair', 'black')
 h.set('animal', 'zebra')
 h.set('dog', 'rex')
-h.set('cat', 'milo')
-h.set('horse', 'neigh')
-h.set('drum', 'blue')
-h.set('keyboard', 'black and white')
 
 p h
 p h.get('island')
@@ -129,3 +131,6 @@ p h.length
 p h.entries
 p h.keys
 p h.values
+h.clear
+
+p h
