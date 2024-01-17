@@ -47,7 +47,11 @@ class HashMap
   end
 
   # is key in hash map?
-  def key?(key) end
+  def key?(key)
+    return true if keys.include?(key)
+
+    false
+  end
 
   # delete from hash map
   def remove(key) end
@@ -77,7 +81,7 @@ class HashMap
 
     @buckets = Array.new(new_capacity)
     current_entries.each do |entry|
-      p entry_key = entry.keys.shift.strip
+      entry_key = entry.keys.shift.strip
       entry_value = entry.values.shift.strip
       set(entry_key, entry_value)
     end
@@ -142,6 +146,10 @@ p h.keys
 
 puts 'values-------------'
 p h.values
+
+puts 'key?'
+p h.key?('name')
+p h.key?('jumper')
 
 puts 'clear array------------'
 h.clear
