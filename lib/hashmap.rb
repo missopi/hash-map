@@ -67,13 +67,6 @@ class HashMap
     @capacity
   end
 
-  # amount of buckets with keys in them
-  def amount_of_buckets
-    amount = 0
-    buckets.each { |bucket| amount += 1 unless bucket == [] }
-    amount
-  end
-
   # buckets full?
   def load_factor_reached?
     true if length > (buckets.length * LOAD_FACTOR)
