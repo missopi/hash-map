@@ -111,4 +111,16 @@ describe HashMap do
       end
     end
   end
+
+  describe '#length' do
+    before do
+      test_hashmap.set('name', 'sophie')
+      test_hashmap.set('city', 'chester')
+    end
+
+    it 'returns amount of keys in hash map' do
+      hash_length = test_hashmap.length
+      expect(hash_length).to eq(2)
+    end
+  end
 end
