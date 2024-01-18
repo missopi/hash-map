@@ -28,11 +28,11 @@ class HashMap
 
     if !buckets[hash_index].nil?
       buckets[hash_index].append({ key => value })
-      @capacity += 1
     else
       buckets[hash_index] = { key => value }
     end
 
+    @capacity += 1
     change_capacity
   end
 
@@ -89,7 +89,7 @@ class HashMap
 
   # empies hash map
   def clear
-    buckets.each(&:clear)
+    @buckets = Array.new(16) { [] }
     @capacity = 0
   end
 
