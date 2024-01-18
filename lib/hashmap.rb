@@ -78,7 +78,8 @@ class HashMap
     new_capacity = buckets.length * 2
     return unless load_factor_reached?
 
-    @buckets = Array.new(new_capacity)
+    @buckets = Array.new(new_capacity) { [] }
+    @capacity = 0
     current_entries.each do |entry|
       entry_key = entry.keys.shift.strip
       entry_value = entry.values.shift.strip
@@ -125,35 +126,11 @@ h.set('children', '2')
 h.set('chair', 'black')
 h.set('animal', 'zebra')
 h.set('dog', 'rex')
+h.set('city', 'chester')
+h.set('county', 'cheshire')
+h.set('surname', 'rose')
+h.set('island', 'isle of man')
+h.set('children', '2')
 
 puts 'hashmap---------'
-p h
-
-puts 'get method-----------'
-p h.get('island')
-p h.get('name')
-p h.get('city')
-
-puts 'length----------'
-p h.length
-
-puts 'entries-----------'
-p h.entries
-
-puts 'keys------------'
-p h.keys
-
-puts 'values-------------'
-p h.values
-
-puts 'key?'
-p h.key?('name')
-p h.key?('jumper')
-
-puts 'remove'
-h.remove('name')
-p h
-
-puts 'clear array------------'
-h.clear
 p h
