@@ -123,4 +123,17 @@ describe HashMap do
       expect(hash_length).to eq(2)
     end
   end
+
+  describe '#clear' do
+    before do
+      test_hashmap.set('name', 'sophie')
+      test_hashmap.set('city', 'chester')
+    end
+
+    it 'deletes all key, value pairs in hash map' do
+      test_hashmap.clear
+      buckets = test_hashmap.buckets
+      expect(buckets).to eq([[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []])
+    end
+  end
 end
