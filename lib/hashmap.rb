@@ -39,6 +39,7 @@ class HashMap
   # return key value
   def get(key)
     hash_index = hash(key)
+    raise IndexError if hash_index.negative? || hash_index >= buckets.length
     return 'String not found' if buckets[hash_index].nil?
 
     buckets[hash_index].each do |hash|
