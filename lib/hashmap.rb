@@ -54,7 +54,12 @@ class HashMap
   end
 
   # delete from hash map
-  def remove(key) end
+  def remove(key)
+    hash_index = hash(key)
+    buckets[hash_index].each { |hash| hash.delete(key) if hash.include?(key) }
+    buckets.each { |bucket| bucket.delete({}) }
+    @capacity -= 1
+  end
 
   # amount of keys
   def length
@@ -150,6 +155,10 @@ p h.values
 puts 'key?'
 p h.key?('name')
 p h.key?('jumper')
+
+puts 'remove'
+h.remove('name')
+p h
 
 puts 'clear array------------'
 h.clear
