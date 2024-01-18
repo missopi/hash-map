@@ -30,7 +30,7 @@ class HashMap
       buckets[hash_index].append({ key => value })
       @capacity += 1
     else
-      buckets[hash_index] = value
+      buckets[hash_index] = { key => value }
     end
 
     change_capacity
