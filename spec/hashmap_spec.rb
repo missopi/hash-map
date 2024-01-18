@@ -118,7 +118,7 @@ describe HashMap do
       test_hashmap.set('city', 'chester')
     end
 
-    it 'returns amount of keys in hash map' do
+    it 'returns amount of keys in hashmap' do
       hash_length = test_hashmap.length
       expect(hash_length).to eq(2)
     end
@@ -130,10 +130,22 @@ describe HashMap do
       test_hashmap.set('city', 'chester')
     end
 
-    it 'deletes all key, value pairs in hash map' do
+    it 'deletes all key, value pairs in hashmap' do
       test_hashmap.clear
       buckets = test_hashmap.buckets
       expect(buckets).to eq([[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []])
+    end
+  end
+
+  describe '#keys' do
+    before do
+      test_hashmap.set('name', 'sophie')
+      test_hashmap.set('city', 'chester')
+    end
+
+    it 'returns an array of all the keys in the hashmap' do
+      test_keys = test_hashmap.keys
+      expect(test_keys).to eq(%w[name city])
     end
   end
 end
