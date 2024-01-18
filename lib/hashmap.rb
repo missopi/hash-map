@@ -69,7 +69,9 @@ class HashMap
 
   # buckets full?
   def load_factor_reached?
-    true if length > (buckets.length * LOAD_FACTOR)
+    return true if length > (buckets.length * LOAD_FACTOR)
+
+    false
   end
 
   # make array bigger
