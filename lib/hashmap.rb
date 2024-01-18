@@ -114,23 +114,3 @@ class HashMap
     entries.flatten
   end
 end
-
-h = HashMap.new
-
-h.set('name', 'sophie')
-h.set('city', 'chester')
-h.set('county', 'cheshire')
-h.set('surname', 'rose')
-h.set('island', 'isle of man')
-h.set('children', '2')
-h.set('chair', 'black')
-h.set('animal', 'zebra')
-h.set('dog', 'rex')
-h.set('city', 'chester')
-h.set('county', 'cheshire')
-h.set('surname', 'rose')
-h.set('island', 'isle of man')
-h.set('children', '2')
-
-puts 'hashmap---------'
-p h
