@@ -148,4 +148,16 @@ describe HashMap do
       expect(test_keys).to eq(%w[name city])
     end
   end
+
+  describe '#values' do
+    before do
+      test_hashmap.set('name', 'sophie')
+      test_hashmap.set('city', 'chester')
+    end
+
+    it 'returns an array of all the values in the hashmap' do
+      test_values = test_hashmap.values
+      expect(test_values).to eq(%w[sophie chester])
+    end
+  end
 end
