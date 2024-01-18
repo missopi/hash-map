@@ -84,4 +84,31 @@ describe HashMap do
       end
     end
   end
+
+  describe '#remove' do
+    context 'when key removed' do
+      before do
+        test_hashmap.set('name', 'sophie')
+      end
+
+      it 'empies bucket when is only element' do
+        test_hashmap.remove('name')
+        buckets = test_hashmap.buckets
+        expect(buckets).to eq([[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []])
+      end
+    end
+
+    context 'when key removed' do
+      before do
+        test_hashmap.set('name', 'sophie')
+        test_hashmap.set('city', 'chester')
+      end
+
+      it 'only deletes the identified key from bucket with multiple elements' do
+        test_hashmap.remove('name')
+        buckets = test_hashmap.buckets
+        expect(buckets).to eq([[], [], [], [], [], [], [], [], [], [], [], [{ 'city' => 'chester' }], [], [], [], []])
+      end
+    end
+  end
 end
