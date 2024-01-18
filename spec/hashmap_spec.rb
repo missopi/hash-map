@@ -31,6 +31,33 @@ describe HashMap do
     end
   end
 
+  describe '#set' do
+    context 'when bucket is empty' do
+      it 'puts value in the bucket' do
+        key = 'name'
+        value = 'sophie'
+        test_hashmap.set(key, value)
+        buckets = test_hashmap.buckets
+        expect(buckets).to eq([[], [], [], [], [], [], [], [], [], [], [], [{ 'name' => 'sophie' }], [], [], [], []])
+      end
+    end
+
+    context 'when bucket already has a value' do
+      before do
+        test_hashmap.set('city', 'chester')
+      end
+
+      it 'adds new value to bucket too' do
+        key = 'name'
+        value = 'sophie'
+        test_hashmap.set(key, value)
+        buckets = test_hashmap.buckets
+        expect(buckets).to eq([[], [], [], [], [], [], [], [], [], [], [],
+                               [{ 'city' => 'chester' }, { 'name' => 'sophie' }], [], [], [], []])
+      end
+    end
+  end
+
   describe '#get' do
     context 'when a key is inputted' do
       before do
@@ -45,3 +72,5 @@ describe HashMap do
     end
   end
 end
+
+
